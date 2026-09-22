@@ -32,6 +32,9 @@ jobs:
       - name: Enable Flutter web
         run: flutter create . --platforms web
 
+      - name: Remove generated widget test
+        run: rm -f test/widget_test.dart
+
       - name: Install dependencies
         run: flutter pub get
 
