@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../data/remote/campus_data_repository.dart';
 import '../../../data/remote/campus_feature_mapper.dart';
 import '../../../data/remote/campus_search.dart';
 import '../../../data/remote/overpass_service.dart';
@@ -18,7 +19,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final _service = OverpassService();
+  final _repository = const CampusDataRepository();
   final _mapper = const CampusFeatureMapper();
   final _search = const CampusSearch();
   final _mapController = MapController();
@@ -72,7 +73,7 @@ class _MapScreenState extends State<MapScreen> {
     });
 
     try {
-      final source = await _service.fetchEspCampus();
+      final source = await _repository.load();
       final features = _mapper.map(source);
 
       if (!mounted) return;
