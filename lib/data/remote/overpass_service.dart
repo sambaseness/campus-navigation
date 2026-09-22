@@ -25,6 +25,8 @@ class OsmFeature {
 }
 
 class OverpassService {
+  const OverpassService();
+
   static const endpoint = 'https://overpass-api.de/api/interpreter';
 
   Future<List<OsmFeature>> fetchEspCampus() async {
