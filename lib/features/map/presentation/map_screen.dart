@@ -296,7 +296,7 @@ class _MapScreenState extends State<MapScreen> {
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(12),
-                  child: Text('Could not load remote OSM data.\n$$_error'),
+                  child: Text('Could not load remote OSM data.\n$_error'),
                 ),
               ),
             ),
