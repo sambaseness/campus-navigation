@@ -40,7 +40,8 @@ class CampusFeatureMapper {
       );
     }
 
-    if (feature.type == 'node' && (feature.name != null || feature.tags['amenity'] != null)) {
+    if (feature.type == 'node' &&
+        (feature.name != null || feature.tags['amenity'] != null)) {
       return CampusFeature(
         id: feature.id,
         type: CampusFeatureType.pointOfInterest,
