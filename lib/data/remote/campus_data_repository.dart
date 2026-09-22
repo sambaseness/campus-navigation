@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -69,7 +70,7 @@ class CampusDataRepository {
     }
 
     return OsmFeature(
-      id: '${element['type']}/${element['id']}',
+      id: element['type'].toString() + '/' + element['id'].toString(),
       type: element['type']?.toString() ?? 'unknown',
       tags: tags,
       geometry: geometry,
