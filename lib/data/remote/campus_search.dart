@@ -42,7 +42,10 @@ class CampusSearch {
       return (a.feature.name ?? '').compareTo(b.feature.name ?? '');
     });
 
-    return scored.take(limit).map((item) => item.feature).toList(growable: false);
+    return scored
+        .take(limit)
+        .map((item) => item.feature)
+        .toList(growable: false);
   }
 }
 
