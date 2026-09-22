@@ -3,10 +3,12 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../data/remote/campus_data_repository.dart';
+import '../../../data/remote/calibration_repository.dart';
 import '../../../data/remote/campus_feature_mapper.dart';
 import '../../../data/remote/campus_search.dart';
 import '../../../domain/campus/campus_feature.dart';
 import '../../../domain/campus/destination_selection.dart';
+import '../../../domain/map/calibration.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -19,6 +21,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final _repository = const CampusDataRepository();
+  final _calibrationRepository = const CalibrationRepository();
   final _mapper = const CampusFeatureMapper();
   final _search = const CampusSearch();
   final _mapController = MapController();
@@ -73,7 +76,8 @@ class _MapScreenState extends State<MapScreen> {
 
     try {
       final source = await _repository.load();
-      final features = _mapper.map(source);
+      final calibration = await _calibrationRepository.load();
+      final features = _applyCalibration(_mapper.map(source), calibration);
 
       if (!mounted) return;
       setState(() {
@@ -83,6 +87,7 @@ class _MapScreenState extends State<MapScreen> {
         _searchResults = _search.search(features, _searchController.text);
         _loading = false;
       });
+      _mapController.move(calibration.transform(MapScreen.campusCenter), 17);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -90,6 +95,24 @@ class _MapScreenState extends State<MapScreen> {
         _loading = false;
       });
     }
+  }
+
+  List<CampusFeature> _applyCalibration(
+    List<CampusFeature> features,
+    MapCalibration calibration,
+  ) {
+    return features
+        .map(
+          (feature) => CampusFeature(
+            id: feature.id,
+            type: feature.type,
+            geometry: calibration.transformPath(feature.geometry),
+            name: feature.name,
+            category: feature.category,
+            tags: feature.tags,
+          ),
+        )
+        .toList(growable: false);
   }
 
   void _selectFeature(CampusFeature feature, {bool focusMap = true}) {
