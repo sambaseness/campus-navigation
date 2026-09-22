@@ -5,7 +5,8 @@ import 'package:latlong2/latlong.dart';
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
 
-  static const campusCenter = LatLng(14.7167, -17.4677);
+  // ESP Dakar / UCAD, Fann — approximate campus center from mapped OSM data.
+  static const campusCenter = LatLng(14.6816, -17.4668);
 
   @override
   Widget build(BuildContext context) {
