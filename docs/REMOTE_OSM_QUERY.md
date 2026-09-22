@@ -19,20 +19,21 @@ This is an extraction area, not a claim that every feature inside it belongs to 
 
 ## Overpass query
 
+The app/exporter use this exact snapshot query:
+
 ```overpass
-[out:json][timeout:25];
-
+[out:json][timeout:60];
 (
-  nwr["amenity"~"university|college|library|school"](14.678,-17.472,14.686,-17.462);
-  nwr["building"](14.678,-17.472,14.686,-17.462);
+  way["building"](14.678,-17.472,14.686,-17.462);
   way["highway"](14.678,-17.472,14.686,-17.462);
-  nwr["name"](14.678,-17.472,14.686,-17.462);
+  way["amenity"](14.678,-17.472,14.686,-17.462);
+  node["amenity"](14.678,-17.472,14.686,-17.462);
+  node["name"](14.678,-17.472,14.686,-17.462);
 );
-
-out body;
->;
-out skel qt;
+out body geom;
 ```
+
+`out geom` is intentional: it returns full geometry for the selected objects, which lets the local parser render ways without a second geometry reconstruction step. citeturn0search1turn0search2
 
 ## Data policy
 
