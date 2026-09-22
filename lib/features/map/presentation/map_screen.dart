@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import '../../../data/remote/campus_data_repository.dart';
 import '../../../data/remote/campus_feature_mapper.dart';
 import '../../../data/remote/campus_search.dart';
-import '../../../data/remote/overpass_service.dart';
 import '../../../domain/campus/campus_feature.dart';
 import '../../../domain/campus/destination_selection.dart';
 
