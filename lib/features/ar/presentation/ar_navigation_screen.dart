@@ -26,6 +26,9 @@ class ArNavigationScreen extends StatefulWidget {
 }
 
 class _ArNavigationScreenState extends State<ArNavigationScreen> {
+  static const _arrowModelUrl =
+      'https://code4fukui.github.io/vr-dinosaur-museum/arrow.glb';
+
   ARSessionManager? _session;
   ARObjectManager? _objects;
   ARAnchorManager? _anchors;
@@ -157,8 +160,8 @@ class _ArNavigationScreenState extends State<ArNavigationScreen> {
 
     final node = ARNode(
       name: 'destination-marker',
-      type: NodeType.localGLB,
-      uri: 'assets/models/arrow.glb',
+      type: NodeType.webGLB,
+      uri: _arrowModelUrl,
       scale: Vector3.all(0.35),
       position: Vector3(0, 0.03, 0),
       rotation: Vector4(0, 1, 0, 0),
