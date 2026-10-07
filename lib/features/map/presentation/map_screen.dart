@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../ar/presentation/ar_navigation_screen.dart';
+
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
 
@@ -10,7 +12,24 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Campus Navigation')),
+      appBar: AppBar(
+        title: const Text('Campus Navigation'),
+        actions: [
+          IconButton(
+            tooltip: 'AR navigation',
+            icon: const Icon(Icons.view_in_ar),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const ArNavigationScreen(
+                    destinationName: 'Selected destination',
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: FlutterMap(
         options: const MapOptions(
           initialCenter: campusCenter,
@@ -25,7 +44,9 @@ class MapScreen extends StatelessWidget {
             maxZoom: 19,
           ),
           const RichAttributionWidget(
-            attributions: [TextSourceAttribution('OpenStreetMap contributors')],
+            attributions: [
+              TextSourceAttribution('OpenStreetMap contributors'),
+            ],
           ),
         ],
       ),
